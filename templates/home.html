@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classifier</title>
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="../static/styles/style1.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Image for Classification</h1>
+
+        <!-- Flash Messages Display -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flash-messages">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <!-- Error Message Display (for direct errors from Flask) -->
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+
+        <form action="/classify" method="post" enctype="multipart/form-data">
+            <!-- Input for file upload, accepting specified image types -->
+            <input type="file" id="imageFile" name="image" accept="image/jpeg, image/png, image/jpg" required>
+            <!-- Image preview area -->
+            <div class="image-preview-container">
+                <img id="imagePreview" src="#" alt="Image Preview" class="image-preview">
+                <p id="previewText">No image selected</p>
+                <p id="previewText2">(Only .png,.jpg and .jpeg allowed)</p>
+                <p id="previewText3">Max Size allowed: 1837 KB</p>
+            </div>
+            <!-- Submit button to send the form data -->
+            <input type="submit" value="Classify Image">
+        </form>
+
+        <!-- Result Display Region -->
+        {% if label %}
+            <div class="classification-result">
+                <h2>Classification Result:</h2>
+                <p class="label-text">{{ label }}</p>
+            </div>
+        {% endif %}
+    </div>
+    <script src="../static/scripts/script1.js"></script>
+</body>
+</html>

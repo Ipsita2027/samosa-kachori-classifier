@@ -1,0 +1,195 @@
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px; /* Add some padding for smaller screens */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8em; /* Make heading responsive */
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+input[type="file"] {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 300px; /* Limit max width for file input */
+    margin-bottom: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+input[type="file"]:hover {
+    border-color: #007bff;
+}
+/* Hide the default file input button */
+input[type="file"]::-webkit-file-upload-button {
+    visibility: hidden;
+}
+input[type="file"]::before {
+    content: 'Select Image';
+    display: inline-block;
+    background: linear-gradient(to top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 8px 15px;
+    outline: none;
+    white-space: nowrap;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+}
+input[type="file"]:active::before {
+    background: -webkit-linear-gradient(to top, #e3e3e3, #f9f9f9);
+}
+
+/* Image preview styling */
+.image-preview-container {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+    min-height: 150px; /* Ensure some height even without image */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+}
+
+.image-preview {
+    max-width: 100%;
+    max-height: 150px; /* Limit height of the preview image */
+    display: none; /* Hidden by default, shown when image is selected */
+    border-radius: 4px;
+    object-fit: contain; /* Ensure image fits within its container without cropping */
+}
+
+#previewText {
+    color: #777;
+    font-style: italic;
+}
+
+#previewText2 {
+    color: #777;
+    font-style: italic;
+}
+
+#previewText3 {
+    color: #777;
+    font-style: italic;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Make submit button full width within container */
+    max-width: 300px; /* Limit max width for submit button */
+}
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* New styles for classification result and messages */
+.classification-result {
+    margin-top: 30px;
+    padding: 20px;
+    border: 2px solid #28a745; /* Green border for success */
+    border-radius: 8px;
+    background-color: #e6ffe6; /* Light green background */
+    color: #28a745;
+}
+
+.classification-result h2 {
+    color: #218838;
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+.classification-result .label-text {
+    font-size: 2em;
+    font-weight: bold;
+    color: #0056b3; /* Blue for the label */
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.classification-result .uploaded-info {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 10px;
+}
+
+.flash-messages {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    color: #dc3545; /* Red for error messages */
+    font-weight: bold;
+}
+
+.flash-messages li {
+    background-color: #f8d7da; /* Light red background */
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.error-message {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        margin: 10px; /* Add margin to prevent sticking to edges */
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    input[type="file"],
+    input[type="submit"],
+    .image-preview-container {
+        max-width: 100%; /* Allow full width on smaller screens */
+    }
+}
