@@ -1,30 +1,51 @@
-name: Deploy Flask App to Railway
+# Name of your workflow
+name: Deploy to Railway
 
+# When the workflow should run
 on:
   push:
     branches:
-      - main  # Change to your deployment branch if needed
+      # Trigger on pushes to the main branch
+      - "main"
 
+# Define the jobs that make up this workflow
 jobs:
-  deploy:
+  build-and-deploy:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    name: Deploy via Railway CLI
 
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # Step 1: Checkout the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      # Step 2: Log in to GitHub Container Registry (GHCR)
+      # This is necessary to push your Docker image to GHCR
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }} # Your GitHub username
+          password: ${{ secrets.GITHUB_TOKEN }} # Automatically provided by GitHub Actions
 
-      - name: Install Railway CLI
-        run: curl -fsSL https://railway.app/install.sh | sh
+      # Step 3: Build and push the Docker image to GHCR
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: . # The build context (current directory)
+          push: true # Push the image to the registry
+          tags: ghcr.io/${{ github.repository }}:latest # Tag the image with your repo name and 'latest'
+          # Example tag: ghcr.io/your-github-username/your-repo-name:latest
 
-      - name: Add Railway CLI to PATH
-        run: echo "${HOME}/.railway/bin" >> $GITHUB_PATH
-
-      - name: Authenticate with Railway
-        run: railway login --token ${{ secrets.RAILWAY_TOKEN }}
-
+      # Step 4: Deploy to Railway using the Railway CLI Action
       - name: Deploy to Railway
-        run: railway up
+        # Updated to use a specific version of the Railway CLI action (v4.5.4)
+        uses: railwayapp/cli@v4.5.4 # Use the official Railway CLI GitHub Action, updated to v4.5.4
+        with:
+          # Your Railway API token, stored as a GitHub Secret
+          token: ${{ secrets.RAILWAY_TOKEN }}
+          # The command to execute.
+          # 'railway up' deploys the current project.
+          # For the initial deployment, omitting '--service' will let Railway infer the name.
+          command: railway up
