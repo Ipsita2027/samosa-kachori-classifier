@@ -1,6 +1,4 @@
 import os
-import io
-from PIL import Image
 from flask import Flask,render_template,url_for,request,flash,redirect
 from fastai.learner import load_learner
 from fastai.vision.all import *
@@ -88,7 +86,7 @@ def classify():
         # flash('Allowed image types are: png, jpg, jpeg')
         return '<h1>Invalid file type.</h1><p>Allowed image types are: png, jpg, jpeg.</p>'
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # Run the Flask application in debug mode
     # In production, debug=False and use a production-ready WSGI server
-    app.run(host="127.0.0.1",port=4000,debug=True)
+    # app.run(host="127.0.0.1",port=4000,debug=True)
