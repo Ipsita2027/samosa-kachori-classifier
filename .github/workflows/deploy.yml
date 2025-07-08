@@ -57,7 +57,7 @@ jobs:
           # We'll use the 'latest' tag as an example if it's the default branch
           IMAGE_URL="${{ env.IMAGE_NAME }}:latest"
           
-          # If you want the SHA-tagged image URL:
+          # If you want the SHA-tagged image URL :
           # IMAGE_URL_SHA="${{ env.IMAGE_NAME }}@${{ steps.meta.outputs.digest }}"
 
           echo "Docker Image pushed to GHCR:"
