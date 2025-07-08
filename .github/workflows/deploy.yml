@@ -44,7 +44,7 @@ jobs:
         with:
           context: . # Assumes your Dockerfile is in the root of your repo
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ghcr.io/${{ github.repository }}:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Deploy to Railway
@@ -55,6 +55,6 @@ jobs:
         with:
           image: ghcr.io/railwayapp/cli:latest # The official Railway CLI Docker image
           options: > # Pass environment variables to the container
-            --env RAILWAY_TOKEN=${{ secrets.RAILWAY_API_TOKEN }}
+            --env RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }}
             --env RAILWAY_SERVICE_ID=${{ secrets.RAILWAY_SERVICE_ID }} # Use this if you configured the secret
           run: railway up # The command to execute inside the Railway CLI container
